@@ -26,6 +26,7 @@ class Wariant2():
     users_data = json.loads(users)
     
     
+    
     def user_posts_info(users_data, posts_data):
         '''Return dictionary with posts information'''
         
@@ -37,6 +38,7 @@ class Wariant2():
             user_id = user["id"]
             user_name = user["username"]
             user_posts_count = 0
+            
             for post in posts_data:
                 if post["userId"] == user_id:
                     user_posts_count += 1
@@ -47,11 +49,9 @@ class Wariant2():
         post_statistic ["userPosts"] = list_post_per_user   
         post_statistic ["totalPostsCount"] = total_post_count
     
-    
         return post_statistic
     
-    # Total post count
-    user_posts = user_posts_info(users_data, posts_data)
+
 
         
     def total_number_post(user_posts):
@@ -59,8 +59,8 @@ class Wariant2():
         
         return(("Total number of posts: {}".format(user_posts["totalPostsCount"])))
     
-    total_number = total_number_post(user_posts)
     
+  
     
     def posts_per_users(user_posts):
         ''' Return post per user - list'''
@@ -73,6 +73,7 @@ class Wariant2():
             
         return(users_post_info)
     
+
 
     
     def non_unique_posts(posts_data):
@@ -96,9 +97,8 @@ class Wariant2():
         else: 
             return("All titles are unique.")
     
-    non_unique_posts(posts_data)
-    
-    
+   
+
     
     def closest_person(users_data):
         '''Function return dict of the closest living people'''
@@ -125,12 +125,14 @@ class Wariant2():
                 else:
                     distance = hypot((lat_2 - lat_1),(lng_2 - lng_1))  
                     all_distances[user_2_name] = distance
-                    
-            min_distance = min(all_distances, key= lambda k: all_distances[k])
-            closest_persons[user_1_name] = min_distance
             
+            if all_distances:        
+                min_val = min(all_distances.values())
+                min_distance = [k for k, v in all_distances.items() if v==min_val]
+                closest_persons[user_1_name] = min_distance
             
         return(closest_persons)
     
+
                     
                 
